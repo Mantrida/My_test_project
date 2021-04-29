@@ -10,5 +10,5 @@ def test_guest_can_add_product_to_basket(browser):
     page.add_to_basket()
     page.solve_quiz_and_get_code()
     page.verfication_correct_adding()
-    time.sleep(30)
+    time.sleep(300)
 
