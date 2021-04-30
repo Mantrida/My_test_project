@@ -1,6 +1,7 @@
 
 from .pages.product_page import ProductPage
 from .pages.login_page import LoginPage
+import pytest
 import time
 
 # @pytest.mark.parametrize('link', ["http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer0",
@@ -15,17 +16,18 @@ import time
 #                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer8",
 #                                   "http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=offer9"])
 
-link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207/?promo=newYear2019'
+link = 'http://selenium1py.pythonanywhere.com/catalogue/coders-at-work_207'
 
+@pytest.mark.need_review
 def test_guest_can_add_product_to_basket(browser):
     page = ProductPage(browser, link)  # инициализируем Page Object, передаем в конструктор экземпляр драйвера и url адрес
     page.open()  # открываем страницу
     page.should_be_button_add_to_basket()  # выполняем метод страницы — переходим на страницу логина
     page.add_to_basket()
-    page.solve_quiz_and_get_code()
     page.verfication_correct_adding()
     time.sleep(5)
 
+@pytest.mark.xfail
 def test_guest_cant_see_success_message_after_adding_product_to_basket(browser):
     page = ProductPage(browser, link)
     page.open()
@@ -40,6 +42,7 @@ def test_guest_cant_see_success_message(browser):
     page.should_not_be_success_message()
     time.sleep(5)
 
+@pytest.mark.xfail
 def test_message_disappeared_after_adding_product_to_basket(browser):
     page = ProductPage(browser, link)
     page.open()
